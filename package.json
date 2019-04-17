@@ -33,13 +33,15 @@
     "test": "jest --coverage --color",
     "test:watch": "jest --watch",
     "prestart": "npm run build",
-    "start": "node build/src"
+    "start": "node build/src",
+    "debug": "node --inspect build/src"
   },
   "author": "Mitchell Rowling <mitchell.rowling@gmail.com>",
   "dependencies": {
     "@koa/cors": "^3.0.0",
     "dotenv": "^7.0.0",
     "fs-extra": "^7.0.1",
+    "joi": "^14.3.1",
     "koa": "^2.7.0",
     "koa-body": "^4.1.0",
     "koa-compose": "^4.1.0",
