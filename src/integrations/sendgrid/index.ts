@@ -41,7 +41,7 @@ export class SendGrid extends BaseIntegration {
       }
       const arr = str.split(',');
       if (arr.length > 0) {
-        this.personalisationObj[key] = arr.map((email: string) => ({ email }));
+        this.personalisationObj[key] = arr.map((email: string) => ({ email: email.trim() }));
       }
     } catch (e) {
       logger.error(`buildPersonalisationObjKey(): ${e}`);
