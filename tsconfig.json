@@ -22,5 +22,5 @@
     "experimentalDecorators": true
   },
   "include": ["src/**/*", "__tests__/**/*"],
-  "exclude": ["build/**/*.js"]
+  "exclude": ["build/**/*.js", "src/**/*.spec.*"]
 }

@@ -1,23 +1,21 @@
-import * as dotenv from 'dotenv';
 import * as joi from 'joi';
-import * as path from 'path';
 
-dotenv.config({ path: path.join(__dirname, '../../.env') });
+export const loadVars = () => {
+  const envVarsSchema = joi
+    .object({
+      NODE_ENV: joi.string().allow([ 'development', 'production', 'test', 'provision' ]).default('development'),
+      PORT: joi.number().default(8080),
+      FROM_ACCOUNT: joi.string().required(),
+      FROM_DOMAIN: joi.string().required(),
+      SENDGRID_API_KEY: joi.string().required(),
+      MAILGUN_API_KEY: joi.string().required()
+    })
+    .unknown()
+    .required();
 
-const envVarsSchema = joi
-  .object({
-    NODE_ENV: joi
-      .string()
-      .allow(['development', 'production', 'test', 'provision'])
-      .default('development'),
-    API_PORT: joi.number().default(8080)
-  })
-  .unknown()
-  .required();
-
-const { error, value: envVars } = joi.validate(process.env, envVarsSchema);
-if (error) {
-  throw new Error(`Config validation error: ${error.message}`);
-}
-
-export { envVars };
+  const { error, value: envVars } = joi.validate(process.env, envVarsSchema, { abortEarly: false });
+  if (error) {
+    throw new Error(`Configuration validation error: ${error.message}`);
+  }
+  return envVars;
+};

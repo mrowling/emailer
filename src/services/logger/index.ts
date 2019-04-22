@@ -2,7 +2,7 @@ import * as fs from 'fs-extra';
 import * as path from 'path';
 import * as winston from 'winston';
 
-const baseDir = path.join(__dirname, '../../../../logs');
+const baseDir = path.join(__dirname, '../../../logs');
 
 fs.ensureDirSync(baseDir);
 
@@ -12,23 +12,20 @@ export const logger = winston.createLogger({
   transports: [
     new winston.transports.File({
       filename: path.join(baseDir, 'error.log'),
-      level: 'error',
+      level: 'error'
     }),
     new winston.transports.File({
-      filename: path.join(baseDir, 'combined.log'),
-    }),
-  ],
+      filename: path.join(baseDir, 'combined.log')
+    })
+  ]
 });
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== 'production' || process.env.HEROKU) {
   logger.add(
     new winston.transports.Console({
-      format: winston.format.simple(),
+      format: winston.format.simple()
     })
   );
 }
-export const accessLogStream = fs.createWriteStream(
-  path.join(baseDir, 'access.log'),
-  {
-    flags: 'a',
-  }
-);
+export const accessLogStream = fs.createWriteStream(path.join(baseDir, 'access.log'), {
+  flags: 'a'
+});

@@ -5,7 +5,7 @@ export const errorHandler = () => async (ctx: Koa.Context, next: Function) => {
   } catch (err) {
     ctx.status = err.statusCode || err.status || 500;
     ctx.body = {
-      message: err.message,
+      message: err.message
     };
   }
 };

@@ -14,34 +14,21 @@ export const loadApp = () => {
   const app = new Koa();
 
   /* Global Middlewares */
-  const middlewares = [
-    morgan('combined', { stream: accessLogStream }),
-    errorHandler(),
-    koaBody(),
-    cors(),
-    respond(),
-  ];
-  const router = createRouter({ prefix: '/v1'})
-  app.use(
-    compose([
-      ...middlewares,
-      router.routes(),
-      router.allowedMethods(),
-    ])
-  );
-  logger.info('Routes', router.routes())
+  const middlewares = [ morgan('combined', { stream: accessLogStream }), errorHandler(), koaBody(), cors(), respond() ];
+  const router = createRouter({ prefix: '/v1' });
+  app.use(compose([ ...middlewares, router.routes(), router.allowedMethods() ]));
   return app;
 };
 
 export const startApp = async (app: Koa, listen: boolean = true) => {
   try {
     if (listen) {
-      const appPort = envVars.API_PORT;
+      const appPort = envVars.PORT;
       app.listen(appPort, () => logger.info(`Listening on port: ${appPort}`));
     }
     return app;
   } catch (error) {
-    logger.error(error.message);
+    logger.error(`startApp(): ${error.message}`);
     throw error;
   }
 };

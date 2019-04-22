@@ -23,7 +23,8 @@
     "object-literal-sort-keys": false,
     "ban-types": false,
     "allowJs": false,
-    "no-var-requires": false
+    "no-var-requires": false,
+    "no-implicit-dependencies": false
   },
-  "extends": ["tslint:latest", "tslint-config-prettier"]
+  "extends": ["tslint:latest", "tslint-config-airbnb", "tslint-config-prettier"]
 }

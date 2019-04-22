@@ -1,2 +1,3 @@
-import { envVars } from './app';
+import { loadVars } from './app';
+const envVars = loadVars();
 export { envVars };
